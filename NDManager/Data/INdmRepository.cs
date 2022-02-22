@@ -5,7 +5,8 @@ namespace NDManager.Data
 {
     public interface INdmRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<Group> GetAllGroups();
+        IEnumerable<Kid> GetAllKids();
         IEnumerable<Kid> GetAllKidsByGroup(Group group);
         T GetById(object id);
         bool SaveAll();

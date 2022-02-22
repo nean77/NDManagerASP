@@ -26,6 +26,20 @@ namespace NDManager.Data
             return _table.ToList();
         }
 
+        public IEnumerable<Group> GetAllGroups()
+        {
+            return _ctx.Groups
+                .Include(g => g.Teacher)
+                .ToList();
+        }
+
+        public IEnumerable<Kid> GetAllKids()
+        {
+            return _ctx.Kids
+                .Include(k => k.Group)
+                .ToList();
+        }
+
         public IEnumerable<Kid> GetAllKidsByGroup(Group group)
         {
             return _ctx.Kids

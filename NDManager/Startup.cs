@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,7 @@ namespace NDManager
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped(typeof(INdmRepository<>), typeof(NdmRepository<>));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
