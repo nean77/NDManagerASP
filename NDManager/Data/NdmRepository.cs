@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NDManager.Data
 {
@@ -21,23 +22,28 @@ namespace NDManager.Data
             _table = _ctx.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _table.ToList();
+            return await _table.ToListAsync();
         }
 
-        public IEnumerable<Group> GetAllGroups()
+        public async Task<IEnumerable<Group>> GetAllGroupsAsync()
         {
-            return _ctx.Groups
+            return await _ctx.Groups
                 .Include(g => g.Teacher)
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<Kid> GetAllKids()
+        public async Task<IEnumerable<Teacher>> GetAllTeachersAsync()
         {
-            return _ctx.Kids
+            return await _ctx.Teachers.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Kid>> GetAllKidsAsync()
+        {
+            return await _ctx.Kids
                 .Include(k => k.Group)
-                .ToList();
+                .ToListAsync();
         }
 
         public IEnumerable<Kid> GetAllKidsByGroup(Group group)
@@ -52,15 +58,21 @@ namespace NDManager.Data
             return _table.Find(id);
         }
 
+        public async Task<bool> UpdateAsync(T obj)
+        {
+            _table.Update(obj);
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+
         public bool SaveAll()
         {
             return _ctx.SaveChanges() > 0;
         }
 
-        public void Insert(T obj)
+        public async Task InsertAsync(T obj)
         {
             _table.Add(obj);
-            _ctx.SaveChanges();
+            await _ctx.SaveChangesAsync();
         }
     }
 }

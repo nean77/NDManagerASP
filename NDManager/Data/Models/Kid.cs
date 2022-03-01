@@ -13,6 +13,7 @@ namespace NDManager.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] [Required] [Key] public int Id { get; set; }
         [Required] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
+        [ForeignKey("Group")] public int GroupId { get; set; }
         [Required] public Group Group { get; set; }
         [Required] [DataType(DataType.Currency)] public decimal MealDailyRate { get; set; }
         [Required] [DataType(DataType.Currency)] public decimal AttendanceDailyRate { get; set; }

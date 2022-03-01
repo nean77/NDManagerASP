@@ -1,25 +1,25 @@
-﻿@model IEnumerable<NDManager.Data.Models.Group>
+﻿@model IEnumerable<NDManager.Data.Models.Teacher>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Grupy</h1>
+<h1>Nauczyciele</h1>
 
 <p>
-    <a class="btn btn-success" onclick="PopupForm('@Url.Action("AddOrEdit","Group")')"><i class="bi bi-plus-square"></i> Nowa grupa</a>
+    <a class="btn btn-success" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")')"><i class="bi bi-plus-square"></i> Nowa grupa</a>
 </p>
 <table id="groupTable" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher)
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th></th>
         </tr>
@@ -29,16 +29,17 @@
         {
             <tr>
                 <td>
-                    @item.Name
+                    @item.Id
                 </td>
                 <td>
-                    @item.Teacher
+                    @item.FirstName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
+                    @item.LastName
                 </td>
                 <td>
-                    <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Group")/@item.Id')">Edytuj</a>
+                    <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")/@item.Id')">Edytuj</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Teacher" asp-route-id="@item.Id" >Usuń</a>
                 </td>
             </tr>
         }
