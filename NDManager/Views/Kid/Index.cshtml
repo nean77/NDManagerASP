@@ -1,0 +1,18 @@
+﻿@using System.Linq
+@using NDManager.Data.Models
+@model NDManager.Data.Models.Group
+
+<h1>Dzieci</h1>
+
+@using (@Html.BeginForm("List", "Kid", FormMethod.Get))
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Wybierz grupę dzieci</h5>
+            @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.Groups, htmlAttributes: new { @class = "form-control" })
+            <br />
+            <input type="submit" value="Wyświetl listę dzieci" class="btn btn-primary" />
+        </div>
+    </div>
+}
+

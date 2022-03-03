@@ -10,12 +10,12 @@ namespace NDManager.Data.Models
 {
     public class Kid
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] [Required] [Key] public int Id { get; set; }
-        [Required] public string FirstName { get; set; }
-        [Required] public string LastName { get; set; }
+        [Display(Name = "Id")] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] [Required] [Key] public int Id { get; set; }
+        [Display(Name = "Imię")] [Required] public string FirstName { get; set; }
+        [Display(Name = "Nazwisko")] [Required] public string LastName { get; set; }
         [ForeignKey("Group")] public int GroupId { get; set; }
-        [Required] public Group Group { get; set; }
-        [Required] [DataType(DataType.Currency)] public decimal MealDailyRate { get; set; }
-        [Required] [DataType(DataType.Currency)] public decimal AttendanceDailyRate { get; set; }
+        [Display(Name = "Grupa")] [Required] public Group Group { get; set; }
+        [Display(Name = "Stawka żywieniowa - dzienna")] [Required] [DataType(DataType.Currency)] public decimal MealDailyRate { get; set; }
+        [Display(Name = "Stawka za godziny - dzienna")] [Required] [DataType(DataType.Currency)] public decimal AttendanceDailyRate { get; set; }
     }
 }

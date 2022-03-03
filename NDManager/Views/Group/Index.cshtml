@@ -45,31 +45,25 @@
     </tbody>
 </table>
 
-<link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-@section Scripts{
-    <script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    var Popup;
 
-    <script>
-        var Popup;
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
 
-        function PopupForm(url) {
-            var formDiv = $('<div/>');
-            $.get(url)
-                .done(function (response) {
-                    formDiv.html(response);
-
-                    Popup = formDiv.dialog({
-                        autoOpen: true,
-                        resizable: false,
-                        title: 'Fill',
-                        height: 700,
-                        width: 650,
-                        close: function() {
-                            Popup.dialog('destroy').remove();
-                        }
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Fill',
+                    height: 700,
+                    width: 650,
+                    close: function() {
+                        Popup.dialog('destroy').remove();
+                    }
+            });
                 });
-                    });
-        }
-    </script>
-}
+    }
+</script>

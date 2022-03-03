@@ -1,0 +1,75 @@
+﻿@model IEnumerable<NDManager.Data.Models.Kid>
+
+@{
+    ViewData["Title"] = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Lista dzieci - @ViewBag.GroupName</h1>
+
+<p>
+    <a class="btn btn-success" onclick="PopupForm('@Url.Action("AddOrEdit","Kid")')"><i class="bi bi-plus-square"></i> Dodaj nowe dziecko</a>
+</p>
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MealDailyRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendanceDailyRate)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MealDailyRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttendanceDailyRate)
+            </td>
+            <td>
+                <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Kid")/@item.Id')">Edytuj</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script>
+    var Popup;
+
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Fill',
+                    height: 700,
+                    width: 650,
+                    close: function() {
+                        Popup.dialog('destroy').remove();
+                    }
+                });
+            });
+    }
+</script>

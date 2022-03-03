@@ -33,6 +33,19 @@ namespace NDManager.Data
                 .Include(g => g.Teacher)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Group>> GetAllActiveGroupsAsync()
+        {
+            return await _ctx.Groups
+                .Include(g => g.Teacher)
+                .Where(x=>x.IsActive == true)
+                .ToListAsync();
+        }
+        public async Task<Group> GetGroupByIdAsync(int id)
+        {
+            return await _ctx.Groups
+                .Include(g => g.Teacher)
+                .FirstOrDefaultAsync(g => g.Id == id);
+        }
 
         public async Task<IEnumerable<Teacher>> GetAllTeachersAsync()
         {
@@ -46,11 +59,17 @@ namespace NDManager.Data
                 .ToListAsync();
         }
 
-        public IEnumerable<Kid> GetAllKidsByGroup(Group group)
+        public async Task<IEnumerable<Kid>> GetAllKidsByGroupAsync(int id)
         {
-            return _ctx.Kids
-                .Where(k => k.Group == group)
-                .ToList();
+            return await _ctx.Kids
+                .Where(k => k.GroupId == id)
+                .ToListAsync();
+        }
+        public async Task<Kid> GetKidByIdAsync(int id)
+        {
+            return await _ctx.Kids
+                .Include(g => g.Group)
+                .FirstOrDefaultAsync(g => g.Id == id);
         }
 
         public T GetById(object id)
@@ -72,6 +91,11 @@ namespace NDManager.Data
         public async Task InsertAsync(T obj)
         {
             _table.Add(obj);
+            await _ctx.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(T obj)
+        {
+            _table.Remove(obj);
             await _ctx.SaveChangesAsync();
         }
     }

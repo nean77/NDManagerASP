@@ -13,5 +13,10 @@ namespace NDManager.Data.Models
         [Display(Name = "Aktywna")] public bool IsActive { get; set; }
 
         public virtual IEnumerable<Kid> Kids { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
