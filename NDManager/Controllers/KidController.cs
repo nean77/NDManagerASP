@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using NDManager.Data;
 using NDManager.Data.Models;
+using System.Threading.Tasks;
 
 namespace NDManager.Controllers
 {
@@ -21,7 +20,6 @@ namespace NDManager.Controllers
         public async Task<IActionResult> Index()
         {
             var groups = await _repository.GetAllActiveGroupsAsync();
-            //ViewBag.Groups = groups;
             ViewBag.Groups = new SelectList(groups, "Id", "Name");
             return View();
         }
@@ -47,6 +45,27 @@ namespace NDManager.Controllers
             if (id == 0) return View(new Kid());
             return View(_repository.GetById(id));
         }
+        [HttpPost]
+        public async Task<IActionResult> AddOrEdit(int? id, Kid kid)
+        {
+            if (id != kid.Id && id != 0)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (id == kid.Id && id == 0)
+                {
+                    await _repository.InsertAsync(kid);
+                }
+                else
+                    await _repository.UpdateAsync(kid);
+
+                return RedirectToAction("List", new { id = kid.GroupId });
+            }
+            return View(kid);
+        }
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -65,10 +84,10 @@ namespace NDManager.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var kid = _repository.GetById(id);
-            int groupid = kid.GroupId;
+            var groupId = kid.GroupId;
             await _repository.DeleteAsync(kid);
 
-            return RedirectToAction("List", new { id=groupid});
+            return RedirectToAction("List", new { id=groupId});
         }
         
     }

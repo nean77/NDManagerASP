@@ -1,0 +1,49 @@
+﻿@model List<NDManager.ViewModels.PaymentViewModel>
+
+@using (Html.BeginForm("GeneratePayment", "Payment", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <table id="groupTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Deduction)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <th>
+                        @Html.HiddenFor(model => model[i].KidId)
+                        @Html.DisplayFor(model => model[i].FirstName)
+                    </th>
+                    <th>
+                        @Html.HiddenFor(model=>model[i].MonthNo)
+                        @Html.DisplayFor(model => model[i].LastName)
+                    </th>
+                    <th>
+                        @Html.HiddenFor(model => model[i].WorkingDays)
+                        @Html.EditorFor(model => model[i].Value, new { htmlAttributes = new { @class = "form-control", @placeholder = "Kwota" } })
+                    </th>
+                    <th>
+                        @Html.EditorFor(model => model[i].Deduction, new { htmlAttributes = new { @class = "form-control", @placeholder="Odliczenie" } })
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" class="btn btn-success float-right" value="Generuj płatności" />
+}

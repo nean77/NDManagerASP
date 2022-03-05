@@ -1,0 +1,38 @@
+﻿@using System.Linq
+@using NDManager.Data.Models
+@model NDManager.ViewModels.PaymentGroupViewModel
+
+<h1>Płatności</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @using (@Html.BeginForm("NewList", "Payment", FormMethod.Post))
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Wybierz grupę dzieci</h5>
+                        @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.PaymentGroups, htmlAttributes: new { @class = "form-control" })
+                        <br />
+                        @Html.LabelFor(m => m.WorkingDays, new { @class = "control-label" })
+                        @Html.EditorFor(m => m.WorkingDays, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        <input type="submit" value="Generuj listę płatności" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            @using (@Html.BeginForm("List", "Payment", FormMethod.Post))
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Wybierz grupę dzieci</h5>
+                        @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.PaymentGroups, htmlAttributes: new { @class = "form-control" })
+                        <br />
+                        <input type="submit" value="Wyświetl listę płatności" class="btn btn-primary" />
+                    </div>
+                </div>
+            }
+        </div>
+        </div>
+    </div>
