@@ -1,54 +1,58 @@
 ﻿@model IEnumerable<NDManager.Data.Models.Teacher>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Nauczyciele";
 }
 
-<h1>Nauczyciele</h1>
-
-<p>
-    <a class="btn btn-success" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")')"><i class="bi bi-plus-square"></i> Nowa grupa</a>
-</p>
-<table id="groupTable" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @item.LastName
-                </td>
-                <td>
-                    <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")/@item.Id')">Edytuj</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Teacher" asp-route-id="@item.Id" >Usuń</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<h1 class="mt-4">Nauczyciele</h1>
+<div class="card mb-4">
+    <div class="card-header">
+        <a class="btn btn-success" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")')"><i class="fa-solid fa-circle-plus"></i> Nowy Nauczyciel</a>
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")/@item.Id')">Edytuj</a>
+                            <a class="btn btn-danger" asp-action="" asp-controller="Teacher" asp-route-id="@item.Id">Usuń</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 @section Scripts{
-    <script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="/js/datatables-simple-demo.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
@@ -63,14 +67,14 @@
                     Popup = formDiv.dialog({
                         autoOpen: true,
                         resizable: false,
-                        title: 'Fill',
+                        title: 'Dodaj / Edytuj',
                         height: 700,
                         width: 650,
-                        close: function() {
+                        close: function () {
                             Popup.dialog('destroy').remove();
                         }
-                });
                     });
+                });
         }
     </script>
 }

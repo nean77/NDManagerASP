@@ -1,15 +1,14 @@
 ﻿@model NDManager.Data.Models.Kid
 
 @{
-    ViewData["Title"] = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Usuń";
 }
 
-<h1>Delete</h1>
+<h1 class="mt-4">Usuń</h1>
 @Html.AntiForgeryToken()
+<br/>
 <h3>Czy napewno chcesz usunąć to dziecko z systemu ?</h3>
-<div>
-    <h4>Kid</h4>
+<div class="row">
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -48,6 +47,5 @@
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Usuń" class="btn btn-danger" /> |
         <a href="@ViewBag.ReturnUrl"> Powrót do listy</a>
-
     </form>
 </div>

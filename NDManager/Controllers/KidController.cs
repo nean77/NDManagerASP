@@ -30,7 +30,7 @@ namespace NDManager.Controllers
             var list = await _repository.GetAllKidsByGroupAsync(group.Id);
 
             Group g = await _repository.GetGroupByIdAsync(group.Id);
-            if (group.Name != null)
+            if (g.Name != null)
             {
                 ViewBag.GroupName = g.Name;
             }

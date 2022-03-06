@@ -7,8 +7,8 @@ namespace NDManager.Data.Models
     public class Teacher
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] [Required] [Key] public int Id { get; set; }
-        [Required] public string FirstName { get; set; }
-        [Required] public string LastName { get; set; }
+        [Display(Name = "Imię")] [Required] public string FirstName { get; set; }
+        [Display(Name = "Nazwisko")] [Required] public string LastName { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
 
         public override string ToString()

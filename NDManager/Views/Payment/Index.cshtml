@@ -2,37 +2,45 @@
 @using NDManager.Data.Models
 @model NDManager.ViewModels.PaymentGroupViewModel
 
-<h1>Płatności</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            @using (@Html.BeginForm("NewList", "Payment", FormMethod.Post))
-            {
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Wybierz grupę dzieci</h5>
+<h1 class="mt-4">Płatności</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header"><h3 class="text-center font-weight-light my-4">Wybierz grupę dzieci</h3></div>
+            <div class="card-body">
+                @using (@Html.BeginForm("NewList", "Payment", FormMethod.Post))
+                {
+                    <div class="form-floating mb-3">
                         @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.PaymentGroups, htmlAttributes: new { @class = "form-control" })
-                        <br />
-                        @Html.LabelFor(m => m.WorkingDays, new { @class = "control-label" })
+                        <label>Wybierz grupę</label>
+                    </div>
+                    <div class="form-floating mb-3">
                         @Html.EditorFor(m => m.WorkingDays, new { htmlAttributes = new { @class = "form-control" } })
-                        <br />
+                        @Html.LabelFor(m => m.WorkingDays, new { @class = "control-label" })
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <input type="submit" value="Generuj listę płatności" class="btn btn-primary" />
                     </div>
-                </div>
-            }
-        </div>
-        <div class="col-md-6">
-            @using (@Html.BeginForm("List", "Payment", FormMethod.Post))
-            {
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Wybierz grupę dzieci</h5>
-                        @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.PaymentGroups, htmlAttributes: new { @class = "form-control" })
-                        <br />
-                        <input type="submit" value="Wyświetl listę płatności" class="btn btn-primary" />
-                    </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header"><h3 class="text-center font-weight-light my-4">Wybierz grupę dzieci</h3></div>
+            <div class="card-body">
+                @using (@Html.BeginForm("List", "Payment", FormMethod.Post))
+                {
+                    <div class="form-floating mb-3">
+                        @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.PaymentGroups, htmlAttributes: new { @class = "form-control" })
+                        <label>Wybierz grupę</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <input type="submit" value="Wyświetl listę płatności" class="btn btn-primary" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
