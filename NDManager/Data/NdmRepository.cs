@@ -71,9 +71,16 @@ namespace NDManager.Data
                 .Include(g => g.Group)
                 .FirstOrDefaultAsync(g => g.Id == id);
         }
+        public async Task<Payment> GetPaymentByIdAsync(int id)
+        {
+            return await _ctx.Payment
+                .Include(k => k.Kid)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
         public async Task<Payment> GetPaymentByKidIdAsync(int id)
         {
             return await _ctx.Payment
+                .Include(k=>k.Kid)
                 .FirstOrDefaultAsync(p=>p.KidId==id);
         }
 

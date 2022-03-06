@@ -13,6 +13,7 @@ namespace NDManager.Data
         Task<IEnumerable<Kid>> GetAllKidsAsync();
         Task<IEnumerable<Kid>> GetAllKidsByGroupAsync(int id);
         Task<Kid> GetKidByIdAsync(int id);
+        Task<Payment> GetPaymentByIdAsync(int id);
         Task<Payment> GetPaymentByKidIdAsync(int id);
         Task<IEnumerable<Payment>> GetPaymentsByGroupId(int id);
         T GetById(object id);

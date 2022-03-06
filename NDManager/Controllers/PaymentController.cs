@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using NDManager.Data;
 using NDManager.Data.Models;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using NDManager.ReportLogic;
 using NDManager.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NDManager.Controllers
 {
@@ -106,8 +106,19 @@ namespace NDManager.Controllers
 
         public async Task<IActionResult> GeneratePdf(int id)
         {
+            var p = await _repository.GetPaymentByIdAsync(id);
+            var l = new List<Payment>();
+            l.Add(p);
 
-            return RedirectToAction("Index");
+            return new FileStreamResult(PaymentPdfGenerator.Generate(l), "application/pdf");
+        }
+        [HttpGet]
+        [Route("/Payment/GenerateGroupPdf/{id}")]
+        public async Task<IActionResult> GenerateGroupPdf(int id)
+        {
+            var paymentList = await _repository.GetPaymentsByGroupId(id);
+
+            return new FileStreamResult(PaymentPdfGenerator.Generate(paymentList.ToList()), "application/pdf");
         }
     }
 }

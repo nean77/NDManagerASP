@@ -17,5 +17,10 @@ namespace NDManager.Data.Models
         [Display(Name = "Grupa")] [Required] public Group Group { get; set; }
         [Display(Name = "Stawka żywieniowa - dzienna")] [Required] [DataType(DataType.Currency)] public decimal MealDailyRate { get; set; }
         [Display(Name = "Stawka za godziny - dzienna")] [Required] [DataType(DataType.Currency)] public decimal AttendanceDailyRate { get; set; }
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }
