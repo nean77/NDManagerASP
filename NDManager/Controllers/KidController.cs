@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NDManager.Data;
 using NDManager.Data.Models;
 using System.Threading.Tasks;
+using NDManager.ViewModels;
 
 namespace NDManager.Controllers
 {
@@ -41,17 +42,44 @@ namespace NDManager.Controllers
         public async Task<IActionResult> AddOrEdit(int? id = 0)
         {
             var groups = await _repository.GetAllActiveGroupsAsync();
-            ViewBag.Groups = groups;
-            if (id == 0) return View(new Kid());
-            return View(_repository.GetById(id));
+
+            var kidVM = new KidViewModel
+            {
+                GroupList = groups
+            };
+
+            if (id == 0) 
+                return View(kidVM);
+
+            var kid = _repository.GetById(id);
+            kidVM.Id = kid.Id;
+            kidVM.FirstName = kid.FirstName;
+            kidVM.LastName = kid.LastName;
+            kidVM.GroupId = kid.GroupId;
+            kidVM.AttendanceDailyRate = kid.AttendanceDailyRate;
+            kidVM.MealDailyRate = kid.MealDailyRate;
+            kidVM.Group = kid.Group;
+            
+            return View(kidVM);
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrEdit(int? id, Kid kid)
+        public async Task<IActionResult> AddOrEdit(int? id, KidViewModel kidVM)
         {
-            if (id != kid.Id && id != 0)
+            if (id != kidVM.Id && id != 0)
             {
                 return NotFound();
             }
+
+            var kid = new Kid
+            {
+                Id = kidVM.Id,
+                FirstName = kidVM.FirstName,
+                LastName = kidVM.LastName,
+                GroupId = kidVM.GroupId,
+                Group = kidVM.Group,
+                AttendanceDailyRate = kidVM.AttendanceDailyRate,
+                MealDailyRate = kidVM.MealDailyRate
+            };
 
             if (ModelState.IsValid)
             {
@@ -64,7 +92,7 @@ namespace NDManager.Controllers
 
                 return RedirectToAction("List", new { id = kid.GroupId });
             }
-            return View(kid);
+            return View(kidVM);
         }
 
         public async Task<IActionResult> Delete(int id)

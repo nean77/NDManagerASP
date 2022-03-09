@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <a class="btn btn-primary" onclick="PopupForm('@Url.Action("AddOrEdit","Teacher")/@item.Id')">Edytuj</a>
-                            <a class="btn btn-danger" asp-action="" asp-controller="Teacher" asp-route-id="@item.Id">Usuń</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Teacher" asp-route-id="@item.Id">Usuń</a>
                         </td>
                     </tr>
                 }

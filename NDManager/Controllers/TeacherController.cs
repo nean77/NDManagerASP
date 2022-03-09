@@ -50,5 +50,25 @@ namespace NDManager.Controllers
             }
             return View(teacher);
         }
+        public IActionResult Delete(int id)
+        {
+            var teacher = _repository.GetById(id);
+            if (teacher.Id == 0)
+            {
+                return NotFound();
+            }
+
+            return View(teacher);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var teacher = _repository.GetById(id);
+            await _repository.DeleteAsync(teacher);
+
+            return RedirectToAction("Index");
+        }
     }
 }

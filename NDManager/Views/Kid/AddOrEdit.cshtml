@@ -1,5 +1,5 @@
 ﻿@using NDManager.Data.Models
-@model NDManager.Data.Models.Kid
+@model NDManager.ViewModels.KidViewModel
 @{
     Layout = null;
 }
@@ -26,7 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Group, new { @class = "control-label" })
         <select asp-for="GroupId" class="form-control">
-            @foreach (Group g in ViewBag.Groups)
+            @foreach (Group g in Model.GroupList)
             {
                 @if (g.Id == Model.GroupId)
                 {
